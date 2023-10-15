@@ -15,8 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+# noinspection PyInterpreter
+from django.conf.urls.static import static
+from core import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+    path('', include("world_news.urls")),
+    path('user/', include("user.urls")),
+    # Other url patterns
+    # path('my-ajax-url/', views.my_ajax_view, name='my_ajax_url'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
